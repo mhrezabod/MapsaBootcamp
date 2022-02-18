@@ -1,12 +1,14 @@
+from functools import reduce
 from unittest import result
 
 
 mat_1 = [
 
-    [1,3,5],
-    [2,5,2],
-    [1,4,2]
+    [2,-2,-4],
+    [-1,3,4],
+    [1,-2,-3]
 ]
+
 
 mat_2 = [
 
@@ -14,6 +16,15 @@ mat_2 = [
     [0,1,0],
     [0,0,1]
 ]
+def transpose (matrix):
+    mat_row= len(matrix)
+    mat_col= len(matrix[0])
+    mat_new= [[0 for x in range (mat_row)] for y in range (mat_col)]
+    for i in range (mat_row):
+        for j in range (mat_col):
+            mat_new[j][i]=matrix[i][j]
+    return mat_new
+
 
 def matrix_multiply(mat1,mat2):
     mat1_row= len(mat1)
@@ -23,16 +34,12 @@ def matrix_multiply(mat1,mat2):
    
     if mat1_col==mat2_row:
         result=[[0 for x in range (mat2_col)] for y in range (mat1_row)]
-        
-
-
+        for i in range (mat1_row):
+            for j in range (mat2_col):
+                    result[i][j]+= reduce(lambda x,y:x+y, map(lambda x,y:x*y,mat1[i],transpose(mat2)[j]))
         return result
     else:
         raise Exception ("zarb pazir nist")
                    
 
 print(matrix_multiply(mat_1,mat_2))
-
-
-a=map(lambda x,y:x*y, mat_1[0:][0:], mat_2[0:][0:])
-print(list(a))
