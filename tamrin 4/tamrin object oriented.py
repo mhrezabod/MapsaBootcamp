@@ -9,6 +9,18 @@ class Account:
         self.phone_number = phone_number
         self.email = email
 
+    @staticmethod
+    def check_username (username):
+        pass
 
+    @staticmethod
+    def check_password (password):
+        pass
 
-
+    @staticmethod
+    def check_phone_number (phone_number):
+        pass
+    
+    @staticmethod
+    def check_email (email):
+        pass
