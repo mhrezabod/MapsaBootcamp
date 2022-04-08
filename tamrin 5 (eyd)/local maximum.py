@@ -1,10 +1,19 @@
 def remove_local_max(lenght,list_):
 
     count=0
-    for i in range(lenght-2):
-        if list_[i+1]>list_[i] and list_[i+1]>list_[i+2]:
-            list_[i+1]=max(list_[i],list_[i+2])
-            count+=1
+    for i in range(1,lenght-1):
+        if list_[i-1]<list_[i]>list_[i+1]:
+            try:
+                if list_[i+2]>= list_[i]:
+                    list_[i+1]=list_[i+2]
+                    count+=1
+                else:
+                    list_[i+1]=list_[i]
+                    count+=1
+            #list_[i]=max(list_[i-1],list_[i+1])
+            except:
+                list_[i]=max(list_[i+1],list_[i-1])
+                count+=1
 
     return count,list_
 
