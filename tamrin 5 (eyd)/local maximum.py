@@ -10,7 +10,6 @@ def remove_local_max(lenght,list_):
                 else:
                     list_[i+1]=list_[i]
                     count+=1
-            #list_[i]=max(list_[i-1],list_[i+1])
             except:
                 list_[i]=max(list_[i+1],list_[i-1])
                 count+=1
