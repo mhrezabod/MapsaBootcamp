@@ -2,33 +2,16 @@
 
 
 def print_rangoli(size):
+    from string import  # something
+    from itertools import # something
+    chars = ...
+    wide = size * 4 - 3
+    make_line = ...
+    lines = ...
+    for line in ...:
+        print(line)
+     
     
-    width  = size*4-3
-    string = ''
-
-    for i in range(1,size+1):
-        for j in range(0,i):
-            string += chr(96+size-j)
-            if len(string) < width :
-                string += '-'
-        for k in range(i-1,0,-1):    
-            string += chr(97+size-k)
-            if len(string) < width :
-                string += '-'
-        print(string.center(width,'-'))
-        string = ''
-
-    for i in range(size-1,0,-1):
-        string = ''
-        for j in range(0,i):
-            string += chr(96+size-j)
-            if len(string) < width :
-                string += '-'
-        for k in range(i-1,0,-1):
-            string += chr(97+size-k)
-            if len(string) < width :
-                string += '-'
-        print(string.center(width,'-'))
 if __name__ == '__main__':
     n = int(input())
     print_rangoli(n)
