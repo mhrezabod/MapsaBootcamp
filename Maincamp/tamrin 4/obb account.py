@@ -44,26 +44,75 @@ class Account:
             raise Exception ("invalid email")
         return email
 
-if __name__== "__main__":
-    account = Account ("al_sdi",'1sd3d2dsA','+989112124066','mohammad.reza.bod@gmail.com')
-    print(account.username)
-    print(account.password)
-    print(account.phone_number)
-    print(account.email)
+# if __name__== "__main__":
+#     account = Account ("al_sdi",'1sd3d2dsA','+989112124066','mohammad.reza.bod@gmail.com')
+#     print(account.username)
+#     print(account.password)
+#     print(account.phone_number)
+#     print(account.email)
 
-
+user = Account('mmdo_sein', 'salamM22', '09120334489', 'mh.r9776@gmail.com')
 class Site:
     def __init__(self,url):
-        self.url=url
-        self.register_users=[]
-        self.active_users=[]
+        #self.user = user
+        self.url = url
+        self.register_user = []
+        self.active_user = []
     
-    def register(self,user):
-
-        if user in self.register_users:
-            raise Exception ("user already registered")
+    def register(self ,user):
+        if user in self.register_user:
+            raise Exception('user already registered')
         else:
-            self.register_users.append(user)
-            print("register successful")
+            self.register_user.append(user)
+            print("registred succesesfully")
+
+    def _login(self, **kwdict):
+        if 'password' not in kwdict:
+            return 'invalid login'
+        else:
+            hashpass = hashlib.sha256(kwdict['password'].encode('utf-8')).hexdigest()
+            
+        if all(a in kwdict for a in 'username email'.split()):
+            for user in self.register_user:
+                if user.username == kwdict['username'] and user.email == kwdict['email'] and user.password == hashpass:
+                    self.active_user.append(user)
+                    return "login successfully"
+                    
+        elif 'username' in kwdict:
+            for user in self.register_user:
+                if user.username == kwdict['username'] and user.password == hashpass:
+                    self.active_user.append(user)
+                    return "login successfully"
+                
+        elif 'email' in kwdict:
+            for user in self.register_user:
+                if user.email == email and user.password == hashlib.sha256(password.encode('utf-8')):
+                    self.active_user.append(user)
+                    return "login successfully"   
+                
+        return 'invalid login'
     
-    def login(self):
+    def _check_active(self, **kwdict):
+        if 'username' in kwdict:
+            for user in self.active_user:
+                if user.username == kwdict['username']:
+                    return 'user already loged in'
+        elif 'email' in kwdict:
+            for user in self.active_user:
+                if user.email == kwdict['email']:
+                    return 'user already loged in'
+        return None
+    
+    def login(self, **kwdict):
+        active = self._check_active(**kwdict)
+        if active is None:
+            active = self._login(**kwdict)
+        return active
+        
+            
+    def logout(self, user):
+        if user in self.active_user:
+            self.active_user.remove(user)
+            print(f"{user} logged out successfully")
+        else:
+            print(f"{user} is not logged in")
